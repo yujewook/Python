@@ -178,7 +178,7 @@ print()
 
 # 인덱스를 강제로 만들어주는것
 
-# users = {"kim": "김유신", "lee":"이순신" ,"hong":"홍길동"}
-# for i , uesr in enumerate(users):
-#
-#     print (i, uesr, uesrs.get(user))
+users = {"kim": "김유신", "lee":"이순신" ,"hong":"홍길동"}
+for i, user in enumerate(users): #enumerate  키값만 나온다.
+     print(i, user ,users[user] )
+     print (i, user, users.get( user ))

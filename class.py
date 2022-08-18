@@ -161,7 +161,7 @@ class Customer :
         return self.name    
     
     #static 메소드 만들기
-    #@staticmethod static어노테이션으로 사용한다.
+    #@staticmethod static어노테이션으로 사용한다. 또는 disp함수명()
     def dispName():
         return Customer.name
     # static 메소드 만들기
@@ -183,7 +183,7 @@ class Car :
     def getClass(cls):
         return cls() #cls라는 객체 만든다 -> 해당클래스가 넘어 온다. 한마디로 cls 클래스를 매개변수로 전달
     def getCc(self):
-        return self.cc
+        return self.ccs
 class Truck(Car):
     cc="3000cc"
     
@@ -325,3 +325,5 @@ gamer.name ="이순신"
 gamer.age= 40
 print(gamer.name)
 print(gamer.age)
+
+

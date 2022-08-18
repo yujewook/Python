@@ -200,7 +200,7 @@ def display1():
     global a # a라는 변수가 전체가 바뀐다. -> 전역변수도 값이 변한다.
     print("전역변수 a:",a) #전역변수를 사용한다
     
-    a =100
+    a =10
     print("지역변수 a",a)
     
 
@@ -223,7 +223,7 @@ def ch(a,b):
 def go(a,b):
     # a=5
     # b=2#지역변수 
-    return a+b
+    return a*b
 def mo(a,b):
     # a=5
     # b=2#지역변수 
