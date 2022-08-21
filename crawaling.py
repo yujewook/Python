@@ -10,6 +10,11 @@
 #     doing()
 # end = time.time()
 # print("실행시간 : " ,(end-start))
+import requests
+
+indeed_resul =requests.get("https://www.naver.com/")
+
+print(indeed_resul.text)
 
 import time
 import threading
