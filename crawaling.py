@@ -10,11 +10,6 @@
 #     doing()
 # end = time.time()
 # print("실행시간 : " ,(end-start))
-import requests
-
-indeed_resul =requests.get("https://www.naver.com/")
-
-print(indeed_resul.text)
 
 import time
 import threading
@@ -314,4 +309,34 @@ p=soup.select_one("p.subject")
 print(p.string)
 
 data = req.urlopen(url).read().decode("utf-8")
-print(data)
+#print(data)
+
+#기상 데이터 파일화 하기
+with open("whether.txt","w",encoding="utf-8") as f:
+    f.write(data)
+    
+#데이터 짤라보기
+soup = bs(data,"html.parser")
+title = soup.find("title")
+#기상청 데이터 title태그 꺼 갖고옴
+print("<<" + title.string +">>")
+
+cities = soup.find_all("city")
+# for city in cities :
+#     print(city.string)
+    
+datas = soup.find_all("data")
+for data in datas:
+    print (data.parent.city.string ,end="\t")
+    #xml에서 tmef태그로 (시간) 되있는 데이터 갖고 오기  , 날씨데이터
+    print(data.tmef.string   , "\t" ,data.wf.string,
+          # 최저 기온  
+          "\t" , data.tmx.string)
+     
+print()
+
+
+    
+
+    
+    
