@@ -164,6 +164,8 @@ import urllib.request as req
 from urllib.error import URLError
 from numpy.testing._private.parameterized import param
 from numpy.core.defchararray import title
+import openpyxl
+from _ast import Lambda
 # f=req.urlopen("http://www.daum.net")
 # print(f.read(100).decode("utf-8"))
 
@@ -183,6 +185,7 @@ data=response.read()
 print(len(data))
 
 #크롤링
+#requests
 import urllib.request
 url = "https://imgnews.pstatic.net/image/109/2022/08/19/0004681395_001_20220819111505656.png?type=w647"
 
@@ -213,127 +216,272 @@ values ={
     "stnId" : 109
     
     }
-params = pa.urlencode(values)
-url = url +"?"+params #url 연결해주면 서 ? 받는 get 방식?
-#print(url)
-#객체를 받기 때문에
-data = req.urlopen(url).read().decode("utf-8")
-#print(data)
+# params = pa.urlencode(values)
+# url = url +"?"+params #url 연결해주면 서 ? 받는 get 방식?
+# #print(url)
+# #객체를 받기 때문에
+# data = req.urlopen(url).read().decode("utf-8")
+# #print(data)
+#
+# #beautifulSoup
+# from bs4 import BeautifulSoup as bs
+# html = """
+#      <html>
+#         <head>
+#             <meta charset="utf-8">
+#             <title>HTML TEST</title>
+#         </head>
+#         <body>
+#             <h2> html 연습 </h2>
+#             <p id ="first"> 짜장면</p>
+#             <p class ="strong"> 짬뽕</p>
+#             <p class ="point Strong"> 탕수육</p>
+#             <p id="second"> 울면</p>
+#         </body>
+#     </html>
+# """
+# soup = bs( html,"html.parser")
+# #soup으로 찾아라 .string 글자를 찾아라
+# print("<<"+ soup.find("h2").string+ ">>")
+# print("<<"+soup.html.body.h2.string+">>")
+#
+# h2 = soup.find("h2")
+# body = h2.parent
+# #print(body)
+# html = body.parent
+# print(html)
+# #h2 다음 것은 <p>
+# p1 = h2.next_sibling.next_sibling
+# print(p1.string)
+# nodes = body.childern #자식 노드들을 갖고안다
+# # for node in nodes :
+# #     print(node.string)
+# ps = soup.find_all("p")
+# for p in ps : 
+#     print(p.string) 
+# p1 = soup.find(id="first")
+# print(p1.string)
+# p2 = soup.find(id="second")
+# print(p2.string)
+#             ##html에서 class 선택자 
+# pp = soup.find_all(class_="strong")
+# for p in pp:
+#     print(p.string)
+#
+# #select()
+# #select_one()하나만 찾을때
+# html ="""
+# <html>
+#     <head>
+#         <meta charset="utf-8">
+#         <title> html 연습 </title>
+#     </head>
+#     <body>
+#         <h2 class="title">웹 스크랩핑 </h2>
+#         <p id="name">html</p>
+#         <p class="subject"><a>xml</a></p>
+#         <p class="subject"><b><a>json</a></b></p>
+#         <a>CDATA</a>
+#     </body>
+# </html>
+# """
+#
+# soup =bs(html,"html.parser")
+# h2 = soup.select_one("body h2")
+# print("<<" +h2.string +">>")
+#
+# ps = soup.select(".subject")
+# for p in ps:
+#     print(p.string)
+#
+# pp = soup.select("body p")
+# for p in pp:
+#     print(p.string)
+#
+# ps = soup.select("p a") #자손 선택자
+# for p in ps :
+#     print(p.string)
+# p = soup.select("p>a") #자식 선택자  
+# for p in pp :
+#     print (p.string) #xml하나만 선택
+#
+# p=soup.select_one("p#name")
+# print(p.string)
+#
+# p=soup.select_one("p.subject")
+# print(p.string)
+#
+# data = req.urlopen(url).read().decode("utf-8")
+# #print(data)
+#
+# #기상 데이터 파일화 하기
+# with open("whether.txt","w",encoding="utf-8") as f:
+#     f.write(data)
+#
+# #데이터 짤라보기
+# soup = bs(data,"html.parser")
+# title = soup.find("title")
+# #기상청 데이터 title태그 꺼 갖고옴
+# print("<<" + title.string +">>")
+#
+# cities = soup.find_all("city")
+# # for city in cities :
+# #     print(city.string)
+#
+# datas = soup.find_all("data")
+# for data in datas:
+#     print (data.parent.city.string ,end="\t")
+#     #xml에서 tmef태그로 (시간) 되있는 데이터 갖고 오기  , 날씨데이터
+#     print(data.tmef.string   , "\t" ,data.wf.string,
+#           # 최저 기온  
+#           "\t" , data.tmx.string)
+#
+# print()
 
-#beautifulSoup
-from bs4 import BeautifulSoup as bs
-html = """
-     <html>
-        <head>
-            <meta charset="utf-8">
-            <title>HTML TEST</title>
-        </head>
-        <body>
-            <h2> html 연습 </h2>
-            <p id ="first"> 짜장면</p>
-            <p class ="strong"> 짬뽕</p>
-            <p class ="point Strong"> 탕수육</p>
-            <p id="second"> 울면</p>
-        </body>
-    </html>
-"""
-soup = bs( html,"html.parser")
-#soup으로 찾아라 .string 글자를 찾아라
-print("<<"+ soup.find("h2").string+ ">>")
-print("<<"+soup.html.body.h2.string+">>")
+# #json 데이터 중괄호로 묶여있다. -> 딕셔너리랑 비슷하다.
+# import json
+# import os.path
+# url = "http://api.github.com/repositories"
+# filename = "github.txt" 
+#
+# if not os.path.exists(filename):
+#     req.urlretrieve(url, filename)
+#     # 파일 읽어오기
+# items = json.load(open(filename , "rt",encoding="utf-8"))
+#
+# # json { {,,,} } 되어 있으니까 반복문을 돌리자
+# for item in items :
+#     #item 안에 자료 id,name key 꺼내기
+#                                     #json 안에 json데이터 꺼내기
+#     print(item["id"],item["name"],item["owner"]["login"])
 
-h2 = soup.find("h2")
-body = h2.parent
-#print(body)
-html = body.parent
-print(html)
-#h2 다음 것은 <p>
-p1 = h2.next_sibling.next_sibling
-print(p1.string)
-nodes = body.childern #자식 노드들을 갖고안다
-# for node in nodes :
-#     print(node.string)
-ps = soup.find_all("p")
-for p in ps : 
-    print(p.string) 
-p1 = soup.find(id="first")
-print(p1.string)
-p2 = soup.find(id="second")
-print(p2.string)
-            ##html에서 class 선택자 
-pp = soup.find_all(class_="strong")
-for p in pp:
-    print(p.string)
 
-#select()
-#select_one()하나만 찾을때
-html ="""
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title> html 연습 </title>
-    </head>
-    <body>
-        <h2 class="title">웹 스크랩핑 </h2>
-        <p id="name">html</p>
-        <p class="subject"><a>xml</a></p>
-        <p class="subject"><b><a>json</a></b></p>
-        <a>CDATA</a>
-    </body>
-</html>
-"""
+# csv데이터
+import csv, codecs
+filename = "test.csv"
+#파일연결해서 csv파일 쓰기 모드
+# write = codecs.open(filename,"w",encoding="utf-8")
+# # csv 에쓰는 것 구분자 만들기 delimeter=","
+# writer = csv.writer(write, delimiter=",")
+# #쓰기 
+# writer.writerow(["아이디","이름","가격"])
+# writer.writerow(["1000","HDD",200000]) 
+# writer.writerow(["1001","SDD",300000]) 
+# writer.writerow(["1002","Monitor",150000]) 
+# writer.writerow(["1003","Mous",20000]) 
+# writer.writerow(["1004","keyboard",300000]) 
+# print("생성완료")
+#
+# #읽을려면 한번 닫아 줘야한다.
+# write.close()
+# # 다시 연결 하고 읽기 모드
+# readcsv= codecs.open(filename , "r" ,encoding="utf-8").read()
+# #데이터 리스트로 만들기 변수 선언하고
+# data = []
+# # 한줄씩 짜르기
+# rows = readcsv.split("\r\n")
+#
+#
+# #print(rows) 자료 확인하고
+# for row in rows:
+#     if row == "":
+#         break
+#     cells =row.split(",")
+#     data.append(cells) #data라는 변수에 넣기
+#
+# print(data)
 
-soup =bs(html,"html.parser")
-h2 = soup.select_one("body h2")
-print("<<" +h2.string +">>")
-
-ps = soup.select(".subject")
-for p in ps:
-    print(p.string)
+#한줄 씩 만들기
+# for d in data : # 리스트 형식
+#     print(d[0],"\t",d[1],"\t",d[2])
     
-pp = soup.select("body p")
-for p in pp:
-    print(p.string)
-    
-ps = soup.select("p a") #자손 선택자
-for p in ps :
-    print(p.string)
-p = soup.select("p>a") #자식 선택자  
-for p in pp :
-    print (p.string) #xml하나만 선택
-    
-p=soup.select_one("p#name")
-print(p.string)
 
-p=soup.select_one("p.subject")
-print(p.string)
+#엑셀 데이터
+import openpyxl
+#엑셀 xlsx 확장자 일때 가능하다.
+filename = "stat_100701.xlsx"
+# work book을 만들고
+wb = openpyxl.load_workbook(filename)
+#읽는 방법
+#1 ws = wb.worksheets[0]
+#2
+ws = wb.active
+# print(ws.rows) 객체를 보여준다
 
-data = req.urlopen(url).read().decode("utf-8")
-#print(data)
-
-#기상 데이터 파일화 하기
-with open("whether.txt","w",encoding="utf-8") as f:
-    f.write(data)
+# 이중 포문으로 뽑아준다. 출력용
+# for row in ws.rows : # 리스트로 받아준다
+#     for data in row : 
+#         if data.value == None:
+#             print("",end="\t")
+#         else:     
+#             print(data.value , end="\t")
+#     print()
     
-#데이터 짤라보기
-soup = bs(data,"html.parser")
-title = soup.find("title")
-#기상청 데이터 title태그 꺼 갖고옴
-print("<<" + title.string +">>")
+#다시 가공해서 엑셀에 넣어주기
+data = []
+            # 워크쉬트에 rows
+for row in ws.rows :
+    if row[9] != None and row[10] != None :
+        data.append( [row[9].value , row[10].value] )
+del(data[0:4]) # none 나오는 부분을 지우기 위해서 지움
 
-cities = soup.find_all("city")
-# for city in cities :
-#     print(city.string)
-    
-datas = soup.find_all("data")
-for data in datas:
-    print (data.parent.city.string ,end="\t")
-    #xml에서 tmef태그로 (시간) 되있는 데이터 갖고 오기  , 날씨데이터
-    print(data.tmef.string   , "\t" ,data.wf.string,
-          # 최저 기온  
-          "\t" , data.tmx.string)
-     
-print()
+#sort 해주기 위해서
+#        return 값이 있고 무엇을 소트할지 함수를 만들어준다 (람다로 )
+                        # 인구 밀도를 기준으로 sort
+                                        # 역으로 
+data = sorted(data , key = lambda x:x[1] , reverse = True)
+
+
+#가공 완료
+for d in data : 
+    print(d)
+
+
+
+
+#가공한 데이터 저장할 파일 만들어 주기
+savefile = "population.xlsx"
+swb = openpyxl.Workbook()
+#활성화
+sws = swb.active
+#sws = swb.create_sheet(title="인구") 주석처리 되면 원래 시트에 들어 가게 된다
+# 인덱스 붙여넣기 어디에다 넣을지 위치를 만들어 줘야 하기 떄문에 인덱스가 필요하다
+for i,d in enumerate(data) :
+    sws.cell(row=i+1,column=1,value=d[0])
+    sws.cell(row=i+1,column=2,value=d[1])    
+swb.save(savefile)
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
 
 
     

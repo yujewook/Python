@@ -175,13 +175,13 @@ url = "http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOB
 # values={
 #     "LAWD_CD" : 11545,
 #     "DEAL_YMD": 202207,
-#     "serviceKey":"OUwSlot%2BeCADq1M9zzdj8Sh1Ni9C4Iiaj9VqSEnyvikodjynkoS1hrbUsP6mSENccvTJH%2FDe3s3y7i836Lk7ew%3D%3D"
+#     "serviceey":"OUwSlot%2BeCADq1M9zzdj8Sh1Ni9C4Iiaj9VqSEnyvikodjynkoS1hrbUsP6mSENccvTJH%2FDe3s3y7i836Lk7ew%3D%3D"
 #     }
 # params = pa.urlencode(values)
 # url = url + "?" + params
-# print
-
+# 
 data=req.urlopen(url).read().decode("utf-8")
+
 #print(data)
 
 #파일로 만들어서 저장
